@@ -1,11 +1,13 @@
 package step
 
 import (
+	"fmt"
+	"os"
+
+	"github.com/manifoldco/promptui"
+
 	"clash-cli/api"
 	"clash-cli/model"
-	"fmt"
-	"github.com/manifoldco/promptui"
-	"os"
 )
 
 type Root struct {
@@ -13,11 +15,13 @@ type Root struct {
 }
 
 func (r Root) Run() error {
-	selectItems := []string{model.PROMPT_ROOT_ITEM_TYPE, model.PROMPT_ROOT_ITEM_PROXY,
+	selectItems := []string{
+		model.PROMPT_ROOT_ITEM_TYPE, model.PROMPT_ROOT_ITEM_PROXY,
 		model.PROMPT_ROOT_ITEM_TRAFFIC, model.PROMPT_ROOT_ITEM_LOG,
-		model.PROMPT_ROOT_ITEM_CLICONF, model.PROMPT_ROOT_ITEM_EXIT}
+		model.PROMPT_ROOT_ITEM_CLICONF, model.PROMPT_ROOT_ITEM_EXIT,
+	}
 
-	checkConn, err := r.checkConn()
+	checkConn, _ := r.checkConn()
 	if !checkConn {
 		fmt.Printf("%s\n", model.WARNING_CANNOT_CONN_CLASH)
 		selectItems = selectItems[4:]
@@ -43,7 +47,6 @@ func (r Root) Run() error {
 	}
 
 	_, result, err := prompt.Run()
-
 	if err != nil {
 		return err
 	}

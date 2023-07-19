@@ -2,14 +2,15 @@ package model
 
 import (
 	"encoding/json"
+	"strings"
+	"sync"
+	"time"
+
 	C "github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/log"
 	T "github.com/Dreamacro/clash/tunnel"
 	"github.com/dustin/go-humanize"
 	"github.com/manifoldco/promptui"
-	"strings"
-	"sync"
-	"time"
 )
 
 type Config struct {
@@ -26,9 +27,9 @@ type Proxies struct {
 }
 
 type Proxy struct {
+	Now  string      `json:"now,omitempty"`
 	All  []ProxyName `json:"all"`
 	Type AdapterType `json:"type,omitempty"`
-	Now  string      `json:"now,omitempty"`
 }
 
 const (
@@ -39,10 +40,10 @@ const (
 var Latencys sync.Map
 
 type ProxyName struct {
-	Now       bool
-	ItemType  int
 	Name      string
 	ExtraInfo string
+	ItemType  int
+	Now       bool
 }
 
 func (p ProxyName) String() string {
@@ -117,8 +118,8 @@ type Traffic struct {
 }
 
 type Log struct {
-	Type    log.LogLevel `json:"type"`
 	Payload string       `json:"payload"`
+	Type    log.LogLevel `json:"type"`
 }
 
 type HumanLatency string

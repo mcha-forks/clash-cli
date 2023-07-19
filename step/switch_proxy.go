@@ -3,11 +3,12 @@ package step
 import (
 	"fmt"
 
-	"clash-cli/api"
-	"clash-cli/model"
 	C "github.com/Dreamacro/clash/constant"
 	"github.com/Dreamacro/clash/tunnel"
 	"github.com/manifoldco/promptui"
+
+	"clash-cli/api"
+	"clash-cli/model"
 )
 
 type SwitchProxy struct {
@@ -33,8 +34,8 @@ func (sp SwitchProxy) Run() error {
 		return sp.LastStep.Run()
 	default: // Rule
 		var selectors []struct {
-			model.Proxy
 			Name string
+			model.Proxy
 		}
 
 		var proxyGroup []string
@@ -56,8 +57,8 @@ func (sp SwitchProxy) Run() error {
 		for name, group := range proxies.Proxies {
 			if group.Type.Is(C.Selector) && name == proxyMode {
 				selectors = append(selectors, struct {
-					model.Proxy
 					Name string
+					model.Proxy
 				}{Name: name, Proxy: group})
 			}
 		}
@@ -79,7 +80,8 @@ func (sp SwitchProxy) Run() error {
 }
 
 func (sp SwitchProxy) UpdateProxy(proxies map[string]model.Proxy,
-	selector model.Proxy, groupName, label string) error {
+	selector model.Proxy, groupName, label string,
+) error {
 	items := []model.ProxyName{{Name: model.PROMPT_PROXY_ITEM_LATENCY_TEST, ItemType: model.ItemTypeLatencyTest}}
 	for _, v := range selector.All {
 		v.ExtraInfo = proxies[v.Name].Now

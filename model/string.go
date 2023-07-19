@@ -26,9 +26,9 @@ const (
 	DB_KEY_SECRET        = "CLASH_API_SECRET"
 	DB_ERROR_KEYNOTFOUND = "not found"
 
-	WARNING_CANNOT_CONN_CLASH = "Cannot connect to Clash，please check clash configuration."
-	WARNING_NOT_PROXY         = "There are currently no proxies to select."
-	WARNING_UNKNOWN_URL_TYPE  = "Unknown url type."
+	WARNING_CANNOT_CONN_CLASH = "cannot connect to clash，please check clash configuration"
+	WARNING_NOT_PROXY         = "there are currently no proxies to select"
+	WARNING_UNKNOWN_URL_TYPE  = "unknown url type"
 
 	CLASH_CONF_MODE_DIRECT = "direct"
 

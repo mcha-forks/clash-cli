@@ -1,14 +1,16 @@
 package step
 
 import (
-	"clash-cli/api"
-	"clash-cli/model"
-	"clash-cli/storage"
 	"errors"
-	"github.com/manifoldco/promptui"
 	"log"
 	"net/url"
 	"regexp"
+
+	"github.com/manifoldco/promptui"
+
+	"clash-cli/api"
+	"clash-cli/model"
+	"clash-cli/storage"
 )
 
 type Config struct {
@@ -52,7 +54,7 @@ func (c Config) setConfig(confKey string) error {
 				if err != nil {
 					return err
 				}
-				r, _ := regexp.Compile("^(https://|http://)\\S+\\w$")
+				r, _ := regexp.Compile(`^(https://|http://)\S+\w$`)
 				if !r.MatchString(u.String()) {
 					return errors.New(model.WARNING_UNKNOWN_URL_TYPE)
 				}
@@ -65,7 +67,7 @@ func (c Config) setConfig(confKey string) error {
 		if err != nil {
 			return err
 		}
-		c.Client.BaseURL = apiUrl
+		c.BaseURL = apiUrl
 
 		err = db.SetUrl(apiUrl)
 		if err != nil {
@@ -85,7 +87,7 @@ func (c Config) setConfig(confKey string) error {
 		if err != nil {
 			return err
 		}
-		c.Client.Secret = apiSecret
+		c.Secret = apiSecret
 
 		if err = db.SetSecret(apiSecret); err != nil {
 			return err

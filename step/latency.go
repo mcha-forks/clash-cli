@@ -8,9 +8,10 @@ import (
 	"strings"
 	"syscall"
 
+	"golang.org/x/sync/errgroup"
+
 	"clash-cli/api"
 	"clash-cli/model"
-	"golang.org/x/sync/errgroup"
 )
 
 type LatencyTest struct {
